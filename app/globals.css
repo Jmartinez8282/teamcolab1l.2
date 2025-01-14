@@ -28,3 +28,9 @@ body {
 .radix-themes {
 	--default-font-family: var(--font-inter);
 }
+h1 {
+  color: azure!important;
+}
+strong{
+  color: azure!important;
+}

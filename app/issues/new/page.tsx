@@ -1,6 +1,5 @@
 "use client";
 import { Button, Callout, TextField } from "@radix-ui/themes";
-import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form";
 import React, { useState } from "react";
@@ -10,11 +9,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import z from 'zod'
+import dynamic from "next/dynamic";
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+
+// interface IssueForm {
+//   title: string;
+//   description: string;
+// }
+
+const SimpleMDE = dynamic(() => import ("react-simplemde-editor"),
+{ssr:false})
+
+
+ type  IssueForm = z.infer<typeof createIssueSchema>
+
 
 const NewIssuePage = () => {
   const {
@@ -36,12 +45,12 @@ const NewIssuePage = () => {
       setIsSubmitting(true);
       await axios.post("/api/issues", data);
       router.push("/issues");
+ 
     } catch (error) {
       setIsSubmitting(false);
       setError("An unexpected error has occurred");
     }
   });
-
   return (
     <>
       <div className="max-w-xl">
