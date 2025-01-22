@@ -34,3 +34,9 @@ h1 {
 strong{
   color: azure!important;
 }
+
+@layer utilities {
+  .nav-link {
+    @apply text-zinc-600 hover:text-zinc-300 transition-colors
+  }
+}

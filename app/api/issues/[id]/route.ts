@@ -2,9 +2,16 @@ import { issueSchema } from "@/app/validationSchemas";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import delay from 'delay'
+import authOptions from "@/app/auth/authOptions";
+import { getServerSession } from "next-auth";
 
 
 export async function PATCH(request:NextRequest,{params}: {params:{id:string}}) {
+
+    const sessions = await getServerSession(authOptions)
+
+    if(!sessions) 
+       return NextResponse.json({}),{status: 401};
 
   const body = await request.json();
 
@@ -34,6 +41,11 @@ export async function PATCH(request:NextRequest,{params}: {params:{id:string}}) 
 
 
 export async function DELETE(request:NextRequest,{params}: {params:{id:string}}) {
+
+    const sessions = await getServerSession(authOptions)
+
+    if(!sessions) 
+       return NextResponse.json({}),{status: 401};
 
     
 
