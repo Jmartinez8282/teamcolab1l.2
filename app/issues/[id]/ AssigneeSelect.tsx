@@ -3,24 +3,11 @@ import { User } from '@prisma/client'
 import { Select } from '@radix-ui/themes'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import {Skeleton} from '@/app/components'
 
 const  AssigneeSelect = () => {
 
-    // const [users, setUsers] = useState<User[]>([])
 
-
-    // useEffect(() => {
-        
-    //     const fetchUser = async () => {
-
-    //        const {data} = await axios.get<User[]>('/api/users');
-    //        setUsers(data)
-    //     }
-
-    //     fetchUser()
-      
-    // }, [])
 
    const{data:users,error,isLoading} = useQuery<User[]>({
         queryKey: ['users'],
@@ -29,6 +16,8 @@ const  AssigneeSelect = () => {
         retry: 3
     })
     
+    if(isLoading) return <Skeleton/>
+    if(error) null
 
 
   return (
