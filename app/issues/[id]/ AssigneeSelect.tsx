@@ -21,7 +21,10 @@ const assignIssue = (userId:string) => {
     .catch(() => {
         toast.error("Changes could not be saved.")
     })
-    
+   const assingedUser = () => `Assigning issue to ${userId === 'Unassigned' ? 'Unassigned' : users?.find(user => user.id === userId)?.name}`
+   
+
+    toast(assingedUser)
 }
   return (
       <>
